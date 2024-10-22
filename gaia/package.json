@@ -1,0 +1,23 @@
+{
+  "name": "gaia",
+  "version": "1.0.0",
+  "workspaces": [
+    "gaia.*"
+  ],
+  "scripts": {
+    "build:all": "npm run build --workspaces --if-present",
+    "clean:all": "npm run clean --workspaces --if-present",
+    "test:all": "npm run test --workspaces --if-present"
+  },
+  "description": "Gaia module for rainbow platform",
+  "main": "index.js",
+  "author": "jrmmendes <jrmmendes@outlook.com>",
+  "license": "SEE LICENSE FILE AT PROJECT ROOT",
+  "dependencies": {
+    "@trpc/client": "^11.0.0-rc.593",
+    "@trpc/server": "^11.0.0-rc.593"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0"
+  }
+}
