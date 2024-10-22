@@ -1,23 +1,24 @@
-import { createHTTPServer } from '@trpc/server/adapters/standalone';
-import { initTRPC } from '@trpc/server'
+import * as trpcExpress from "@trpc/server/adapters/express"
+import { appRouter } from "./router"
+import cors from 'cors';
+import express from 'express'
 
 export const bootstrap = () => {
-  const tRPC = initTRPC.create();
+  const createContext = ({
+    req,
+    res,
+  }: trpcExpress.CreateExpressContextOptions) => ({});
+  type Context = Awaited<ReturnType<typeof createContext>>;
 
-  const router = tRPC.router;
-  const procedure = tRPC.procedure;
+  const app = express();
 
-  const appRouter = router({
-    list: procedure.query(async () => {
-      const users = [{
-        id: '123',
-        name: 'Mendes',
-        age: 23
-      }]
+  app.use(cors());
+  app.disable('x-powered-by');
 
-      return users;
-    })
-  })
+  app.use(trpcExpress.createExpressMiddleware({
+      router: appRouter,
+      createContext,
+    }))
 
-  return createHTTPServer({ router: appRouter })
+  return app;
 }

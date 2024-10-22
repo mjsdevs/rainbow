@@ -1,3 +1,6 @@
+import { createHTTPServer } from "@trpc/server/adapters/standalone";
+import { appRouter as router } from "./router";
 import { bootstrap } from "./bootstrap";
- 
-bootstrap().listen(3000);
+
+const server = bootstrap();
+server.listen(3000);
