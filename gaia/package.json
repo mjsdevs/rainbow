@@ -2,7 +2,7 @@
   "name": "gaia",
   "version": "1.0.0",
   "workspaces": [
-    "gaia.*"
+    "packages/gaia.*"
   ],
   "scripts": {
     "build:all": "npm run build --workspaces --if-present",
