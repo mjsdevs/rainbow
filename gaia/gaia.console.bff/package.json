@@ -1,0 +1,12 @@
+{
+  "name": "gaia.console.bff",
+  "version": "1.0.0",
+  "keywords": [],
+  "scripts": {
+    "clean": "rimraf dist",
+    "start:dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "start:prod": "node dist/server.js",
+    "build": "tsc -p ."
+  },
+  "author": "jrmmendes <jrmmendes@outlook.com>"
+}
