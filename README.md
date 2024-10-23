@@ -4,7 +4,7 @@
 
 <h3 align=center>
 
-"There's more in the sky than blue and white clouds."
+"More colors for your blue sky."
 
 </h3>
 
