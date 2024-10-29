@@ -1,45 +1,69 @@
-import { useCallback, useEffect, useState } from 'react'
-import './App.css'
+import {
+  AppLayout,
+  BreadcrumbGroup,
+  Container,
+  ContentLayout,
+  Header,
+  Link,
+  SideNavigation,
+} from '@cloudscape-design/components';
+import { I18nProvider } from '@cloudscape-design/components/i18n';
+import messages from '@cloudscape-design/components/i18n/messages/all.en';
+import { useState } from 'react';
+import { Navbar } from './widgets/NavBar';
 
-import type { AppRouter } from '../../gaia.console.bff/src/router';
-import { createTRPCClient, httpBatchLink } from '@trpc/client';
+const LOCALE = 'en';
 
-
-function App() {
-  const [users, setUsers] = useState<{ id: string, name: string, age: number }[]>()
-
-  const trpc = createTRPCClient<AppRouter>({
-    links: [
-      httpBatchLink({
-        url: 'http://localhost:3000',
-      }),
-    ],
-  });
-
-  const fetchUsers = useCallback(async () => {
-    const response = await trpc.list.query()
-
-    setUsers(response);
-
-  }, [trpc.list])
-
-  useEffect(() => {fetchUsers()})
-
+export default function AppLayoutPreview() {
+  const [isNavigationOpen, setIsNavigationOpen] = useState(true)
   return (
-    <>
-      {
-        !users
-          ? <p> loading... </p>
-          : users?.map(user => <ul>
-
-        <li> Name: {user.name} </li>
-        <li> Age: {user.age} </li>
-        <li> ID: {user.id} </li>
-
-        </ul>)}
-
-    </>
-  )
+    <I18nProvider locale={LOCALE} messages={[messages]}>
+      <Navbar />
+      <AppLayout
+        breadcrumbs={
+          <BreadcrumbGroup
+            items={[
+              { text: 'Home', href: '#' },
+            ]}
+          />
+        }
+        navigationOpen={isNavigationOpen}
+        onNavigationChange={() => setIsNavigationOpen((prev) => !prev)}
+        navigation={
+          <SideNavigation
+            header={{
+              href: '/',
+              text: 'Functions',
+            }}
+            activeHref='/minerva'
+            items={[
+              { type: 'link', text: 'Minerva', href: '/minerva' },
+              { type: 'link', text: 'Hades', href: '/hades' },
+              { type: 'link', text: 'Apolo', href: '/apolo'},
+            ]}
+          />
+        }
+        toolsHide
+        content={
+          <ContentLayout
+            header={
+              <Header variant="h1" info={<Link variant="info">Info</Link>}>
+                Page header
+              </Header>
+            }
+          >
+            <Container
+              header={
+                <Header variant="h2" description="Container description">
+                  Container header
+                </Header>
+              }
+            >
+              <div className="contentPlaceholder" />
+            </Container>
+          </ContentLayout>
+        }
+      />
+    </I18nProvider>
+  );
 }
-
-export default App
