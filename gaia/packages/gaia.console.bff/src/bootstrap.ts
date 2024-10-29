@@ -1,7 +1,8 @@
 import * as trpcExpress from "@trpc/server/adapters/express"
-import { appRouter } from "./router"
 import cors from 'cors';
 import express from 'express'
+
+import { appRouter } from "./router"
 
 export const bootstrap = () => {
   const createContext = ({
@@ -16,9 +17,9 @@ export const bootstrap = () => {
   app.disable('x-powered-by');
 
   app.use(trpcExpress.createExpressMiddleware({
-      router: appRouter,
-      createContext,
-    }))
+    router: appRouter,
+    createContext,
+  }))
 
   return app;
 }
