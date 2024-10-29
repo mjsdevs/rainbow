@@ -1,5 +1,4 @@
 import TopNavigation from "@cloudscape-design/components/top-navigation";
-import GaiaSvg from '../components/icons/assets/gaia.svg';
 
 export const Navbar = () => {
   return (
@@ -8,7 +7,7 @@ export const Navbar = () => {
         href: "/",
         title: "Gaia Console",
         logo: {
-          src: GaiaSvg,
+          src: "/gaia.svg",
           alt: "Gaia Logo"
         }
       }}
